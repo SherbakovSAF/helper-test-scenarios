@@ -18,7 +18,7 @@
                стоит подсматривать на форум. И помни, "повторение - мать учения"</h1>
           <button class="initial__button" onclick="resetQuestion(state)">Начать</button>
      </div>
-     <div class="main__wrap  container none">
+     <div class="main__wrap  container">
           <h1 class="main__title">Админ помощник</h1>
           <div class="question__window">
                <p class="main__question">Какое наказание вы выдадите, если игрок <span id="question__window">оскорбит
@@ -31,7 +31,7 @@
           </div>
           <div class="answer__window">
                <input id="answer__input" class="answer__input" type="text" placeholder="Пример: /ban 30 30">
-               <button class="answer__button" onclick="proverka()">Наказать</button>
+               <button class="answer__button" onclick="checkAnswer(state)">Наказать</button>
           </div>
           <div class="window"></div>
      </div>
