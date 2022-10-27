@@ -56,17 +56,18 @@ function resetQuestion(elem) {
 function checkAnswer(elem) {
     let clearArray = answerInput.value.split(" ").filter((e) => e != "");
     numberAnswer = elem.currentAnswer
-console.log(clearArray[0], numberAnswer.command)
+console.log(typeof Number(clearArray[1]) == "number")
+console.log()
     if (clearArray.length === 3) {
         if (
             clearArray[0] === numberAnswer.command &&
-            clearArray[1] === "number" &&
+            typeof Number(clearArray[1]) == "number" &&
             clearArray[2] >= numberAnswer.minPunish &&
             clearArray[2] <= numberAnswer.maxPunish
         ) {
            return  console.log("ответ верный");
         } else {
-          return console.log("ответ верный");
+          return console.log("ответ не верный");
         }
     } else {
      return console.log("Проверьте правильность написания, оно должны быть из 3 элементов. Пример: /ban 0 00");
