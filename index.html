@@ -13,12 +13,12 @@
 
 <body>
      <div class="initial__window container">
-          <h1 class="initial__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
+          <h1 id= "initial__title" class="initial__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
                проверить насколько хорого ты знаешь нормы наказаний для игроков. Чтобы лучше закрепить твои знания, не
                стоит подсматривать на форум. И помни, "повторение - мать учения"</h1>
           <button class="initial__button" onclick="resetQuestion(state)">Начать</button>
      </div>
-     <div class="main__wrap  container">
+     <div class="main__wrap  container none">
           <h1 class="main__title">Админ помощник</h1>
           <div class="question__window">
                <p class="main__question">Какое наказание вы выдадите, если игрок <span id="question__window">оскорбит
@@ -33,7 +33,9 @@
                <input id="answer__input" class="answer__input" type="text" placeholder="Пример: /ban 30 30">
                <button class="answer__button" onclick="checkAnswer(state)">Наказать</button>
           </div>
-          <div class="window"></div>
+          <div class="answer none">
+               <h1 class="aaa">Твой ответ верен, молодец</h1>
+          </div>
      </div>
 </body>
 

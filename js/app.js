@@ -4,32 +4,32 @@ let state = {
             id: 0,
             question:
                 "находясь во фракция 'Полиция' будет бить дубинкой всех подряд и садить их?",
-            command: "/jail",
-            minPunish: "0",
-            maxPunish: "150",
+            command: "/kick",
+            // minPunish: 0,
+            // maxPunish: 100,
         },
         {
             id: 1,
             question:
                 "убьёт человека без причины в казино, где будет, кроме Вас 4 человека?",
-            command: "/jail",
-            minPunish: "0",
-            maxPunish: "100",
+            command: "/kick",
+            minPunish: 0,
+            maxPunish: 100,
         },
         {
             id: 2,
             question:
                 "если игрок, будет ехать по полю на охоте, на авто 'Niva'",
-            command: "/jail",
-            minPunish: "0",
-            maxPunish: "100",
+            command: "/kick",
+            minPunish: 0,
+            maxPunish: 100,
         },
         {
             id: 3,
             question: "если игрок, скажет в чат 'Пошли в Скайп'",
-            command: "/jail",
-            minPunish: "0",
-            maxPunish: "100",
+            command: "/kick",
+            minPunish: 0,
+            maxPunish: 100,
         },
     ],
     currentAnswer: {},
@@ -38,13 +38,16 @@ let state = {
 const answerInput = document.querySelector("#answer__input");
 const questionWindow = document.querySelector("#question__window");
 const initialWindow = document.querySelector(".initial__window");
-const mainWrap = document.querySelector(".main__wrap ");
+const mainWrap = document.querySelector(".main__wrap");
+const answer = document.querySelector(".answer");
+
 
 function generateQuestion(elem) {
-    let objectQuestion = elem.questions[Math.floor(Math.random() * elem.questions.length)];
-    questionWindow.innerHTML = objectQuestion;
+    let objectQuestion =
+        elem.questions[Math.floor(Math.random() * elem.questions.length)];
+    questionWindow.innerHTML = objectQuestion.question;
     elem.currentAnswer = objectQuestion;
-    console.log(elem.currentAnswer)
+    console.log(elem.currentAnswer);
 }
 
 function resetQuestion(elem) {
@@ -53,11 +56,17 @@ function resetQuestion(elem) {
     mainWrap.classList.remove("none");
 }
 
+function windowTotal(text, className) {
+    answer.firstElementChild.innerHTML = text
+    answer.firstElementChild.classList.add(className)
+    answer.classList.remove("none");
+    answerInput.value = ""
+}
+
+
 function checkAnswer(elem) {
     let clearArray = answerInput.value.split(" ").filter((e) => e != "");
-    numberAnswer = elem.currentAnswer
-console.log(typeof Number(clearArray[1]) == "number")
-console.log()
+    numberAnswer = elem.currentAnswer;
     if (clearArray.length === 3) {
         if (
             clearArray[0] === numberAnswer.command &&
@@ -65,12 +74,22 @@ console.log()
             clearArray[2] >= numberAnswer.minPunish &&
             clearArray[2] <= numberAnswer.maxPunish
         ) {
-           return  console.log("ответ верный");
+            return console.log("ответ верный");
         } else {
-          return console.log("ответ не верный");
+            windowTotal("Ответ неверный", "bad");
+        }
+    } else if (clearArray.length === 2) {
+        if (
+            clearArray[0] === numberAnswer.command &&
+            typeof Number(clearArray[1]) == "number"
+        ) {
+            return console.log("ответ верный");
+        } else {
+            windowTotal("Ответ неверный", "bad");
         }
     } else {
-     return console.log("Проверьте правильность написания, оно должны быть из 3 элементов. Пример: /ban 0 00");
+        return console.log(
+            "Проверьте правильность написания, оно должны быть из 3 элементов. Пример: /ban 0 00"
+        );
     }
-    
 }
