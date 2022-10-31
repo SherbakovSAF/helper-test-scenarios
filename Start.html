@@ -5,9 +5,9 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="./css/normalize.css">
-     <link rel="stylesheet" href="./css/main.css">
-
+     <link rel="stylesheet" href="./Files/css/normalize.css">
+     <link rel="stylesheet" href="./Files/css/main.css">
+     <link rel="stylesheet" href="./Files/fonts/stylesheet.css">
      <title>Вопросник</title>
 </head>
 
@@ -15,24 +15,20 @@
      <div class="main__container">
           <div class="active__window">
                <div class="stats__answer">
-                    <h1 class="true__anwer">Правильных ответов - <span>0</span></h1>
-                    <h1 class="false__anwer">Неправильных ответов - <span>0</span></h1>
+                    <h1 class="total_answer  true__answer">Правильных ответов - <span>0</span></h1>
+                    <h1 class="total_answer  false__answer">Неправильных ответов - <span>0</span></h1>
                </div>
-               <div class="answer__input">
-                    <input type="text">
-               </div>
-               <div class="answer__button">
-                    <button>Наказать</button>
-               </div>
+                <input class="answer__input" type="text" placeholder="Пример: /ban 10 10">
+               <button class="answer__button">Наказать</button>
           </div>
           <div class="info__window">
-               <p>Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
+               <p class="question__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
                     проверить насколько хорого ты знаешь нормы наказаний для игроков. Чтобы лучше закрепить твои знания,
                     не
                     стоит подсматривать на форум. И помни, "повторение - мать учения"
                </p>
                <button>Создать вопрос</button>
-               <p>Уважаемый администратор, вводите наказание форматом <strong>/ban [любой ID] [время ит.д]</strong>
+               <p class="question__note">Уважаемый администратор, вводите наказание форматом <strong>/ban [любой ID] [время ит.д]</strong><br>
                     Если Вы считаете, что наказание не нужно, тогда поставьте знак <strong>"-"</strong></p>
           </div>
      </div>
