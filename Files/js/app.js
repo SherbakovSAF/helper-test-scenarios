@@ -32,21 +32,35 @@ let state = {
 
 
 const answerInput = document.querySelector("#answerInput")
+const createQuestion = document.querySelector("#createQuestion")
+    const questionWindow = document.querySelector("#questionWindow")
+    const answerButton = document.querySelector("#answerButton")
 
 // Кнопка создать пост
 function generateQuestion(elem) {
-    const createQuestion = document.querySelector("#createQuestion")
-    const questionWindow = document.querySelector("#questionWindow")
-    const answerButton = document.querySelector("#answerButton")
-    let objectQuestion =
-        elem.questions[Math.floor(Math.random() * elem.questions.length)];
+    let objectQuestion = elem.questions[Math.floor(Math.random() * elem.questions.length)];
     questionWindow.innerHTML = objectQuestion.question;
     elem.currentAnswer = objectQuestion;
-    createQuestion.classList.add("none")
     answerInput.removeAttribute("disabled")
-    answerButton.classList.remove("none")
     answerInput.value = ""
-    console.log(elem.currentAnswer);
+    createQuestion.style.opacity = 0
+    answerButton.style.opacity = 1
+    createQuestion.setAttribute("disabled","")
+    answerButton.removeAttribute("disabled")
+}
+
+function nextQuestion(atr) {
+    if (atr == true) {
+        questionWindow.innerHTML = "Ты большой молодец. Создай ещё один вопрос" 
+    } else if (atr == false){
+        questionWindow.innerHTML = "Посмотри, где ты совершил ошибку" + "<br/>" + questionWindow.innerHTML
+    }
+    answerInput.setAttribute("disabled", '')
+    answerInput.value = "Чтобы создать новый вопрос, нажмите кнопку 'Создать вопрос'"
+    createQuestion.style.opacity = 1
+    answerButton.style.opacity = 0
+    answerButton.setAttribute("disabled","")
+    createQuestion.removeAttribute("disabled")
 }
 
 function result(solution){
@@ -65,36 +79,41 @@ function checkAnswer(elem) {
         case "/ban":
         case "/jail":
             if (
+                clearArray[0] == numberAnswer.command &&
                 typeof Number(clearArray[1]) == "number" &&
                 clearArray[2] >= numberAnswer.minPunish &&
                 clearArray[2] <= numberAnswer.maxPunish &&
                 clearArray.length === 3
             ) {
-                result("answer__true");
+                nextQuestion(true)
                 trueAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
             } else {
-                result("answer__false");
-                falseAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
+                nextQuestion(false)
+                falseAnswerCount.innerHTML = Number(falseAnswerCount.innerHTML) + 1
             }
             break;
         case "/kick":
         case "/warn":
-            if (typeof Number(clearArray[1]) == "number" &&
+            if (
+                clearArray[0] == numberAnswer.command &&
+                typeof Number(clearArray[1]) == "number" &&
             clearArray.length === 2) {
-                result("answer__true");
+                nextQuestion(true)
                 trueAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
             } else {
-                result("answer__false");
-                falseAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
+                nextQuestion(false)
+                falseAnswerCount.innerHTML = Number(falseAnswerCount.innerHTML) + 1
             }
             break;
         case "/skip":
-            if (clearArray.length === 1) {
-                result("answer__true");
+            if (
+                clearArray[0] == numberAnswer.command &&
+                clearArray.length === 1) {
+                nextQuestion(true)
                 trueAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
             } else {
-                result("answer__false");
-                falseAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1
+                nextQuestion(false)
+                falseAnswerCount.innerHTML = Number(falseAnswerCount.innerHTML) + 1
             }
             break;
         default:

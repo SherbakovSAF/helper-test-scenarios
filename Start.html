@@ -19,7 +19,7 @@
                     <h1 class="total_answer  false__answer">Неправильных ответов - <span id="falseAnswerCount">0</span></h1>
                </div>
                 <input disabled value="Нажмите кнопку 'Создать вопрос'"  id="answerInput" class="answer__input" type="text" placeholder="Пример: /ban 10 10">
-               <button  class="answer__button none" id="answerButton" onclick="checkAnswer(state)">Наказать</button>
+               <button disabled class="answer__button" id="answerButton" onclick="checkAnswer(state)">Наказать</button>
           </div>
           <div class="info__window">
                <p id="questionWindow" class="question__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
@@ -29,7 +29,7 @@
                </p>
                <button class="" type="button" id="createQuestion" onclick="generateQuestion(state)">Создать вопрос</button>
                <p class="question__note">Уважаемый администратор, вводите наказание форматом <strong>/ban [любой ID] [время ит.д]</strong><br>
-                    Если Вы считаете, что наказание не нужно, тогда поставьте знак <strong>"-"</strong></p>
+                    Если Вы считаете, что наказание не нужно, тогда введите <strong>"/skip"</strong></p>
           </div>
      </div>
 </body>
