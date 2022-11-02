@@ -15,19 +15,19 @@
      <div class="main__container">
           <div class="active__window">
                <div class="stats__answer">
-                    <h1 class="total_answer  true__answer">Правильных ответов - <span>0</span></h1>
-                    <h1 class="total_answer  false__answer">Неправильных ответов - <span>0</span></h1>
+                    <h1 class="total_answer  true__answer">Правильных ответов - <span id="trueAnswerCount">0</span></h1>
+                    <h1 class="total_answer  false__answer">Неправильных ответов - <span id="falseAnswerCount">0</span></h1>
                </div>
-                <input class="answer__input" type="text" placeholder="Пример: /ban 10 10">
-               <button class="answer__button">Наказать</button>
+                <input disabled value="Нажмите кнопку 'Создать вопрос'"  id="answerInput" class="answer__input" type="text" placeholder="Пример: /ban 10 10">
+               <button  class="answer__button none" id="answerButton" onclick="checkAnswer(state)">Наказать</button>
           </div>
           <div class="info__window">
-               <p class="question__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
+               <p id="questionWindow" class="question__title">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
                     проверить насколько хорого ты знаешь нормы наказаний для игроков. Чтобы лучше закрепить твои знания,
                     не
                     стоит подсматривать на форум. И помни, "повторение - мать учения"
                </p>
-               <button>Создать вопрос</button>
+               <button class="" type="button" id="createQuestion" onclick="generateQuestion(state)">Создать вопрос</button>
                <p class="question__note">Уважаемый администратор, вводите наказание форматом <strong>/ban [любой ID] [время ит.д]</strong><br>
                     Если Вы считаете, что наказание не нужно, тогда поставьте знак <strong>"-"</strong></p>
           </div>
@@ -35,4 +35,4 @@
 </body>
 
 </html>
-<script src="./js/app.js"></script>
+<script src="./Files/js/app.js"></script>
