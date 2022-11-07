@@ -72,8 +72,8 @@ function generateQuestion(elem) {
     }
 }
 
-function change(elem) {
-    
+function openFAQ() {
+    document.querySelector(".modal__window").classList.toggle("none")
 }
 
 function nextQuestion(atr) {
