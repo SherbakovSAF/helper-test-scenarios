@@ -5,17 +5,20 @@ let state = {
             question:
                 "Что если начал стрелять на ЖД Арзамас в человека с Desert Eagle?",
             command: "/warn",
+            currentAnswerQuestion: "Игроку выдаётся /warn [ID]. Так как он убивает без причины (ДМ) в Зелёной зоне",
         },
         {
             id: 1,
             question:
                 "Человек стоит на ЦР, с занятой лавкой в АФК уже 5+ минут и у него нет товаров",
             command: "/kick",
+            currentAnswerQuestion: "Человек просто так занимает лавку, поэтому ему нужно кикнуть /kick [ID]",
         },
         {
             id: 2,
             question: "А если игрок будет ехать по полю, на авто марки Niva'",
             command: "/skip",
+            currentAnswerQuestion: "Авто 'Нива' разрешён для езды по полям, поэтому наказание тут не будет",
         },
         {
             id: 3,
@@ -24,6 +27,7 @@ let state = {
             command: "/mute",
             minPunish: 0,
             maxPunish: 70,
+            currentAnswerQuestion: "Скайп - OOC информация. А использование OOC информации в IC, это МГ, поэтому игроку выдаётся мут - /mute [ID] 0-70",
         },
     ],
     currentAnswer: {},
@@ -36,8 +40,7 @@ const answerButton = document.querySelector("#answerButton");
 let questionArray = [];
 
 // Кнопка создать пост
-function generateQuestion(elem) {
-    
+function generateQuestion(elem) { 
     if (questionArray.length >= elem.questions.length) {
 
         questionWindow.innerHTML =
@@ -76,14 +79,15 @@ function openFAQ() {
     document.querySelector(".modal__window").classList.toggle("none")
 }
 
-function nextQuestion(atr) {
+function nextQuestion(atr, elem) {
     if (atr == true) {
         questionWindow.innerHTML = "Ты большой молодец. Создай ещё один вопрос";
     } else if (atr == false) {
         questionWindow.innerHTML =
-            "Посмотри, где ты совершил ошибку" +
+            "Ты совершил ошибку" +
             "<br/>" +
-            questionWindow.innerHTML;
+            elem.currentAnswer.currentAnswerQuestion;
+            createQuestion.innerHTML = "Учту. Создать новый вопрос"
     }
     answerInput.setAttribute("disabled", "");
     answerInput.value =
@@ -98,6 +102,8 @@ function result(solution) {
     answerInput.className = "";
     answerInput.className = `answer__input  ${solution}`;
 }
+
+
 
 function checkAnswer(elem) {
     const trueAnswerCount = document.querySelector("#trueAnswerCount");
@@ -117,13 +123,12 @@ function checkAnswer(elem) {
                 clearArray[2] <= numberAnswer.maxPunish &&
                 clearArray.length === 3
             ) {
-                result("answer__true");
                 nextQuestion(true);
                 trueAnswerCount.innerHTML =
                     Number(trueAnswerCount.innerHTML) + 1;
             } else {
                 result("answer__false");
-                nextQuestion(false);
+                nextQuestion(false, elem);
                 falseAnswerCount.innerHTML =
                     Number(falseAnswerCount.innerHTML) + 1;
             }
@@ -135,13 +140,12 @@ function checkAnswer(elem) {
                 typeof Number(clearArray[1]) == "number" &&
                 clearArray.length === 2
             ) {
-                result("answer__true");
                 nextQuestion(true);
                 trueAnswerCount.innerHTML =
                     Number(trueAnswerCount.innerHTML) + 1;
             } else {
                 result("answer__false");
-                nextQuestion(false);
+                nextQuestion(false, elem);
                 falseAnswerCount.innerHTML =
                     Number(falseAnswerCount.innerHTML) + 1;
             }
@@ -151,13 +155,12 @@ function checkAnswer(elem) {
                 clearArray[0] == numberAnswer.command &&
                 clearArray.length === 1
             ) {
-                result("answer__true");
                 nextQuestion(true);
                 trueAnswerCount.innerHTML =
                     Number(trueAnswerCount.innerHTML) + 1;
             } else {
                 result("answer__false");
-                nextQuestion(false);
+                nextQuestion(false, elem);
                 falseAnswerCount.innerHTML =
                     Number(falseAnswerCount.innerHTML) + 1;
             }
