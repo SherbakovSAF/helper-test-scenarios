@@ -83,7 +83,7 @@ body {
      width: 100%;
      padding: 1vh 2vw;
      outline: none;
-     cursor: text;
+     cursor: default;
 }
 
 .answer__button {
@@ -212,4 +212,11 @@ body {
      font-size: 16px;
      margin: 0 auto;
      padding: 0.5vw 2vw;
+}
+
+
+.timer__window {
+     font-size: 6px;
+     color: #929191;
+     opacity: 0;
 }

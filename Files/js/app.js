@@ -41,7 +41,25 @@ const answerInput = document.querySelector("#answerInput");
 const createQuestionBtn = document.querySelector("#createQuestionBtn");
 const questionWindow = document.querySelector("#questionWindow");
 const answerButton = document.querySelector("#answerButton");
+
 let questionArray = [];
+let timeForQuestion;
+
+function timer() {
+    const checkTimer = document.querySelector("#checkTimer");
+    function restOfTime() {
+        if (Number(checkTimer.innerHTML == 0)) {
+            checkTimer.parentElement.innerHTML = `<span style="color: #a8323e">Время закончилось</span>`
+            clearTimeout(timeForQuestion)
+            resultFalse(state);
+        } else {
+            checkTimer.innerHTML = checkTimer.innerHTML - 1;
+        }
+    }
+    
+    timeForQuestion = setInterval(restOfTime, 1000)
+}
+
 
 function fullDisableElem(elem, title) {
     elem.setAttribute("disabled", "");
@@ -73,6 +91,8 @@ function checkPossibleQuestions(elem) {
 }
 
 function questionGeneration(elem) {
+    fullEnable(document.querySelector(".timer__window"))
+    document.querySelector(".timer__window").innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">45</span></h1>`
     let objectQuestion =
         elem.questions[Math.floor(Math.random() * elem.questions.length)];
     if (questionArray.indexOf(objectQuestion.id) < 0) {
@@ -80,6 +100,7 @@ function questionGeneration(elem) {
         questionWindow.innerHTML = objectQuestion.question;
         elem.currentAnswer = objectQuestion;
         conditionAnswer();
+        timer()
         return;
     } else {
         checkPossibleQuestions(elem);
@@ -102,12 +123,10 @@ function resultTrue(elem) {
 }
 
 function resultFalse(elem) {
+    clearTimeout(timeForQuestion)
     const falseAnswerCount = document.querySelector("#falseAnswerCount");
-    falseAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1;
-    questionWindow.innerHTML =
-        "Ты совершил ошибку" +
-        "<br/>" +
-        elem.currentAnswer.currentAnswerQuestion;
+    falseAnswerCount.innerHTML = Number(falseAnswerCount.innerHTML) + 1;
+    questionWindow.innerHTML = `<span style="color: #C30052">Ты совершил ошибку</span> <br> ${elem.currentAnswer.currentAnswerQuestion}`;
     createQuestionBtn.innerHTML = "Учту. Создать новый вопрос";
     fullDisableElem(answerButton);
     fullEnable(createQuestionBtn);
@@ -117,9 +136,10 @@ function resultFalse(elem) {
 function changeInput(status) {
     if (status == "false") {
         answerInput.className = `answer__input answer__false`;
-        answerInput.value =
-            "Ошибочка. Советуем прочитать его и запомнить";
-        answerInput.setAttribute("disable", "");
+        answerInput.value = "";
+        answerInput.placeholder =
+            "Ошибочка. Советуем прочитать ворпрос и запомнить его";
+        answerInput.setAttribute("disabled", "");
     } else if (status == "default") {
         answerInput.className = `answer__input`;
         answerInput.value = "";
@@ -173,14 +193,20 @@ function checkAnswer(elem) {
         case "/mute":
         case "/ban":
         case "/jail":
-            answerConditions(3, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
-            break
+            answerConditions(3, clearArray, elem.currentAnswer)
+                ? resultTrue(state)
+                : resultFalse(state);
+            break;
         case "/kick":
         case "/warn":
-            answerConditions(2, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
+            answerConditions(2, clearArray, elem.currentAnswer)
+                ? resultTrue(state)
+                : resultFalse(state);
             break;
         case "/skip":
-            answerConditions(1, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
+            answerConditions(1, clearArray, elem.currentAnswer)
+                ? resultTrue(state)
+                : resultFalse(state);
             break;
         default:
             changeInput("warning");
