@@ -83,6 +83,7 @@ body {
      width: 100%;
      padding: 1vh 2vw;
      outline: none;
+     cursor: text;
 }
 
 .answer__button {
@@ -188,7 +189,6 @@ body {
      text-align: center;
      display: block;
      margin-left: auto;
-
 
      width: 15%;
      border: none;

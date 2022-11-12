@@ -5,20 +5,23 @@ let state = {
             question:
                 "Что если начал стрелять на ЖД Арзамас в человека с Desert Eagle?",
             command: "/warn",
-            currentAnswerQuestion: "Игроку выдаётся /warn [ID]. Так как он убивает без причины (ДМ) в Зелёной зоне",
+            currentAnswerQuestion:
+                "Игроку выдаётся /warn [ID]. Так как он убивает без причины (ДМ) в Зелёной зоне",
         },
         {
             id: 1,
             question:
                 "Человек стоит на ЦР, с занятой лавкой в АФК уже 5+ минут и у него нет товаров",
             command: "/kick",
-            currentAnswerQuestion: "Человек просто так занимает лавку, поэтому ему нужно кикнуть /kick [ID]",
+            currentAnswerQuestion:
+                "Человек просто так занимает лавку, поэтому ему нужно кикнуть /kick [ID]",
         },
         {
             id: 2,
             question: "А если игрок будет ехать по полю, на авто марки Niva'",
             command: "/skip",
-            currentAnswerQuestion: "Авто 'Нива' разрешён для езды по полям, поэтому наказание тут не будет",
+            currentAnswerQuestion:
+                "Авто 'Нива' разрешён для езды по полям, поэтому наказание тут не будет",
         },
         {
             id: 3,
@@ -27,145 +30,163 @@ let state = {
             command: "/mute",
             minPunish: 0,
             maxPunish: 70,
-            currentAnswerQuestion: "Скайп - OOC информация. А использование OOC информации в IC, это МГ, поэтому игроку выдаётся мут - /mute [ID] 0-70",
+            currentAnswerQuestion:
+                "Скайп - OOC информация. А использование OOC информации в IC, это МГ, поэтому игроку выдаётся мут - /mute [ID] 0-70",
         },
     ],
     currentAnswer: {},
 };
 
 const answerInput = document.querySelector("#answerInput");
-const createQuestion = document.querySelector("#createQuestion");
+const createQuestionBtn = document.querySelector("#createQuestionBtn");
 const questionWindow = document.querySelector("#questionWindow");
 const answerButton = document.querySelector("#answerButton");
 let questionArray = [];
 
-// Кнопка создать пост
-function generateQuestion(elem) { 
-    if (questionArray.length >= elem.questions.length) {
+function fullDisableElem(elem, title) {
+    elem.setAttribute("disabled", "");
+    elem.style.opacity = 0;
+    elem.style.cursor = "default";
+    elem.classList.className = title;
+}
 
+function fullEnable(elem, title) {
+    elem.removeAttribute("disabled");
+    elem.style.opacity = 1;
+    elem.style.cursor = "pointer";
+    elem.classList.className = title;
+}
+
+function checkPossibleQuestions(elem) {
+    changeInput("default");
+    if (questionArray.length >= elem.questions.length) {
         questionWindow.innerHTML =
-            "Офигеть. Ты ответил на все вопросы. Перезагрузи страницу и всё начнётся по-новой, Миша";
-            questionWindow.style.color = "#a8323e"
-            answerButton.style.opacity = 1;
-    answerButton.setAttribute("disabled", "");
-    answerButton.style.opacity = 0;
-    createQuestion.style.opacity = 0;
-    createQuestion.setAttribute("disabled", "");
-    answerInput.style.opacity = 0;
-    answerInput.setAttribute("disabled", "");
-        return;
+            "Офигеть. Ты разобрад все вопросы. Перезагрузи страницу и всё начнётся по-новой, Миша";
+        questionWindow.style.color = "#a8323e";
+        answerButton.style.opacity = 1;
+        fullDisableElem(answerButton);
+        fullDisableElem(createQuestionBtn);
+        fullDisableElem(answerInput);
+    } else {
+        questionGeneration(elem);
     }
-    debugger
+}
+
+function questionGeneration(elem) {
     let objectQuestion =
         elem.questions[Math.floor(Math.random() * elem.questions.length)];
     if (questionArray.indexOf(objectQuestion.id) < 0) {
         questionArray.push(objectQuestion.id);
         questionWindow.innerHTML = objectQuestion.question;
-    elem.currentAnswer = objectQuestion;
-    answerInput.removeAttribute("disabled");
-    answerInput.value = "";
-    answerInput.className = "answer__input";
-    createQuestion.style.opacity = 0;
-    createQuestion.setAttribute("disabled", "");
-    answerButton.style.opacity = 1;
-    answerButton.removeAttribute("disabled");
+        elem.currentAnswer = objectQuestion;
+        conditionAnswer();
+        return;
     } else {
-        generateQuestion(elem)
-        return
+        checkPossibleQuestions(elem);
+        return;
     }
 }
 
-function openFAQ() {
-    document.querySelector(".modal__window").classList.toggle("none")
+function conditionAnswer() {
+    fullEnable(answerInput, "answer__input");
+    answerInput.style.cursor = "text";
+    answerInput.value = "";
+    fullDisableElem(createQuestionBtn);
+    fullEnable(answerButton);
 }
 
-function nextQuestion(atr, elem) {
-    if (atr == true) {
-        questionWindow.innerHTML = "Ты большой молодец. Создай ещё один вопрос";
-    } else if (atr == false) {
-        questionWindow.innerHTML =
-            "Ты совершил ошибку" +
-            "<br/>" +
-            elem.currentAnswer.currentAnswerQuestion;
-            createQuestion.innerHTML = "Учту. Создать новый вопрос"
+function resultTrue(elem) {
+    const trueAnswerCount = document.querySelector("#trueAnswerCount");
+    trueAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1;
+    checkPossibleQuestions(elem);
+}
+
+function resultFalse(elem) {
+    const falseAnswerCount = document.querySelector("#falseAnswerCount");
+    falseAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1;
+    questionWindow.innerHTML =
+        "Ты совершил ошибку" +
+        "<br/>" +
+        elem.currentAnswer.currentAnswerQuestion;
+    createQuestionBtn.innerHTML = "Учту. Создать новый вопрос";
+    fullDisableElem(answerButton);
+    fullEnable(createQuestionBtn);
+    changeInput("false");
+}
+
+function changeInput(status) {
+    if (status == "false") {
+        answerInput.className = `answer__input answer__false`;
+        answerInput.value =
+            "Ошибочка. Советуем прочитать его и запомнить";
+        answerInput.setAttribute("disable", "");
+    } else if (status == "default") {
+        answerInput.className = `answer__input`;
+        answerInput.value = "";
+        answerInput.removeAttribute("disabled");
+    } else if (status == "warning") {
+        answerInput.className = `answer__input answer__warning`;
+        answerInput.value = "";
+        answerInput.placeholder =
+            "Что то пошло не так. Советую прочитать F.A.Q";
     }
-    answerInput.setAttribute("disabled", "");
-    answerInput.value =
-        "Чтобы создать новый вопрос, нажмите кнопку 'Создать вопрос'";
-    createQuestion.style.opacity = 1;
-    answerButton.style.opacity = 0;
-    answerButton.setAttribute("disabled", "");
-    createQuestion.removeAttribute("disabled");
 }
 
-function result(solution) {
-    answerInput.className = "";
-    answerInput.className = `answer__input  ${solution}`;
+function answerConditions(condition, value1, value2) {
+    switch (condition) {
+        case 3:
+            if (
+                value1[0] == value2.command &&
+                typeof Number(value1[1]) == "number" &&
+                value1[2] >= value2.minPunish &&
+                value1[2] <= value2.maxPunish &&
+                value1.length === 3
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        case 2:
+            if (
+                value1[0] == value2.command &&
+                typeof Number(value1[1]) == "number" &&
+                value1.length === 2
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        case 1:
+            if (value1[0] == value2.command && value1.length === 1) {
+                return true;
+            } else {
+                return false;
+            }
+    }
 }
-
-
 
 function checkAnswer(elem) {
-    const trueAnswerCount = document.querySelector("#trueAnswerCount");
-    const falseAnswerCount = document.querySelector("#falseAnswerCount");
     let clearArray = answerInput.value.split(" ").filter((e) => e != "");
     clearArray[0] = clearArray[0].toLowerCase();
-    numberAnswer = elem.currentAnswer;
-    console.log(clearArray);
+
     switch (clearArray[0]) {
         case "/mute":
         case "/ban":
         case "/jail":
-            if (
-                clearArray[0] == numberAnswer.command &&
-                typeof Number(clearArray[1]) == "number" &&
-                clearArray[2] >= numberAnswer.minPunish &&
-                clearArray[2] <= numberAnswer.maxPunish &&
-                clearArray.length === 3
-            ) {
-                nextQuestion(true);
-                trueAnswerCount.innerHTML =
-                    Number(trueAnswerCount.innerHTML) + 1;
-            } else {
-                result("answer__false");
-                nextQuestion(false, elem);
-                falseAnswerCount.innerHTML =
-                    Number(falseAnswerCount.innerHTML) + 1;
-            }
-            break;
+            answerConditions(3, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
+            break
         case "/kick":
         case "/warn":
-            if (
-                clearArray[0] == numberAnswer.command &&
-                typeof Number(clearArray[1]) == "number" &&
-                clearArray.length === 2
-            ) {
-                nextQuestion(true);
-                trueAnswerCount.innerHTML =
-                    Number(trueAnswerCount.innerHTML) + 1;
-            } else {
-                result("answer__false");
-                nextQuestion(false, elem);
-                falseAnswerCount.innerHTML =
-                    Number(falseAnswerCount.innerHTML) + 1;
-            }
+            answerConditions(2, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
             break;
         case "/skip":
-            if (
-                clearArray[0] == numberAnswer.command &&
-                clearArray.length === 1
-            ) {
-                nextQuestion(true);
-                trueAnswerCount.innerHTML =
-                    Number(trueAnswerCount.innerHTML) + 1;
-            } else {
-                result("answer__false");
-                nextQuestion(false, elem);
-                falseAnswerCount.innerHTML =
-                    Number(falseAnswerCount.innerHTML) + 1;
-            }
+            answerConditions(1, clearArray, elem.currentAnswer) ? resultTrue(state) : resultFalse(state);
             break;
         default:
-            result("answer__warning");
+            changeInput("warning");
     }
+}
+
+function openFAQ() {
+    document.querySelector(".modal__window").classList.toggle("none");
 }
