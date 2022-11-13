@@ -19,25 +19,36 @@ body {
 }
 
 .question__title {
+     margin: 0;
      font-weight: 700;
      font-size: 1.9em;
      line-height: 1.1;
      color: #14142B;
      text-align: center;
      align-self: center;
+     position: relative;
+}
+
+.ticket__img{
+     display: block;
+     position: absolute;
+     top: 32%;
+     left: 50%;
+     transform: translate(-50%, -100%);
+     height: 70px;
+     opacity: 1;
 }
 
 .question__note {
      font-size: 10px;
      text-align: right;
      letter-spacing: 0.75px;
-
      color: #14142B;
 }
 
 .info__window {
      display: grid;
-     grid-template-rows: 1fr 10fr 1fr 1fr;
+     grid-template-rows: 1fr 9fr 1fr 1fr;
      background: #FFFFFF;
      height: 65vh;
      padding: 1vh 2vw;
@@ -193,7 +204,7 @@ body {
      width: 15%;
      border: none;
      font-weight: 600;
-     font-size: 12px;
+     font-size: 18px;
      background-color: rgba(255, 128, 0, 0.8);
      border-radius: 10px;
      color: #fff;
@@ -216,7 +227,8 @@ body {
 
 
 .timer__window {
-     font-size: 6px;
-     color: #929191;
+     font-size: 8px;
+     color: #797979;
      opacity: 0;
 }
+

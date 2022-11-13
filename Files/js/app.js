@@ -6,7 +6,7 @@ let state = {
                 "Что если начал стрелять на ЖД Арзамас в человека с Desert Eagle?",
             command: "/warn",
             currentAnswerQuestion:
-                "Игроку выдаётся /warn [ID]. Так как он убивает без причины (ДМ) в Зелёной зоне",
+                "Игроку выдаётся /warn. Так как он убивает без причины (ДМ) в Зелёной зоне",
         },
         {
             id: 1,
@@ -14,7 +14,7 @@ let state = {
                 "Человек стоит на ЦР, с занятой лавкой в АФК уже 5+ минут и у него нет товаров",
             command: "/kick",
             currentAnswerQuestion:
-                "Человек просто так занимает лавку, поэтому ему нужно кикнуть /kick [ID]",
+                "Человек просто так занимает лавку, поэтому ему нужно кикнуть /kick",
         },
         {
             id: 2,
@@ -79,7 +79,7 @@ function checkPossibleQuestions(elem) {
     changeInput("default");
     if (questionArray.length >= elem.questions.length) {
         questionWindow.innerHTML =
-            "Офигеть. Ты разобрад все вопросы. Перезагрузи страницу и всё начнётся по-новой, Миша";
+            "Офигеть! Ты разобрал все вопросы! Перезагрузи страницу, и всё начнётся по-новой, Миша";
     document.querySelector(".timer__window").classList.add("none")
         questionWindow.style.color = "#a8323e";
         answerButton.style.opacity = 1;
@@ -93,8 +93,9 @@ function checkPossibleQuestions(elem) {
 
 function questionGeneration(elem) {
     fullEnable(document.querySelector(".timer__window"))
-    document.querySelector(".timer__window").innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">45</span></h1>`
+    document.querySelector(".timer__window").innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">25</span></h1>`
     answerInput.placeholder = "Пример: /ban 10"
+    document.querySelector(".ticket__img").classList.add('none')
     let objectQuestion =
         elem.questions[Math.floor(Math.random() * elem.questions.length)];
     if (questionArray.indexOf(objectQuestion.id) < 0) {
@@ -128,8 +129,9 @@ function resultFalse(elem) {
     clearTimeout(timeForQuestion)
     const falseAnswerCount = document.querySelector("#falseAnswerCount");
     falseAnswerCount.innerHTML = Number(falseAnswerCount.innerHTML) + 1;
+    document.querySelector(".ticket__img").classList.remove('none')
     questionWindow.innerHTML = `<span style="color: #C30052">Ты совершил ошибку</span> <br> ${elem.currentAnswer.currentAnswerQuestion}`;
-    createQuestionBtn.innerHTML = "Учту. Создать новый вопрос";
+    createQuestionBtn.innerHTML = "Учту! Создать новый вопрос.";
     fullDisableElem(answerButton);
     fullEnable(createQuestionBtn);
     changeInput("false");
@@ -150,7 +152,7 @@ function changeInput(status) {
         answerInput.className = `answer__input answer__warning`;
         answerInput.value = "";
         answerInput.placeholder =
-            "Что то пошло не так. Советую прочитать F.A.Q";
+            "Что-то пошло не так. Советую прочитать F.A.Q";
     }
 }
 
@@ -208,8 +210,4 @@ function checkAnswer(elem) {
 
 function openFAQ() {
     document.querySelector(".modal__window").classList.toggle("none");
-}
-
-function sendPunish() {
-
 }
