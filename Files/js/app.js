@@ -45,6 +45,7 @@ const answerButton = document.querySelector("#answerButton");
 let questionArray = [];
 let timeForQuestion;
 
+
 function timer() {
     const checkTimer = document.querySelector("#checkTimer");
     function restOfTime() {
@@ -59,7 +60,6 @@ function timer() {
     
     timeForQuestion = setInterval(restOfTime, 1000)
 }
-
 
 function fullDisableElem(elem, title) {
     elem.setAttribute("disabled", "");
@@ -80,6 +80,7 @@ function checkPossibleQuestions(elem) {
     if (questionArray.length >= elem.questions.length) {
         questionWindow.innerHTML =
             "Офигеть. Ты разобрад все вопросы. Перезагрузи страницу и всё начнётся по-новой, Миша";
+    document.querySelector(".timer__window").classList.add("none")
         questionWindow.style.color = "#a8323e";
         answerButton.style.opacity = 1;
         fullDisableElem(answerButton);
@@ -93,6 +94,7 @@ function checkPossibleQuestions(elem) {
 function questionGeneration(elem) {
     fullEnable(document.querySelector(".timer__window"))
     document.querySelector(".timer__window").innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">45</span></h1>`
+    answerInput.placeholder = "Пример: /ban 10"
     let objectQuestion =
         elem.questions[Math.floor(Math.random() * elem.questions.length)];
     if (questionArray.indexOf(objectQuestion.id) < 0) {
@@ -154,23 +156,14 @@ function changeInput(status) {
 
 function answerConditions(condition, value1, value2) {
     switch (condition) {
-        case 3:
-            if (
-                value1[0] == value2.command &&
-                typeof Number(value1[1]) == "number" &&
-                value1[2] >= value2.minPunish &&
-                value1[2] <= value2.maxPunish &&
-                value1.length === 3
-            ) {
-                return true;
-            } else {
-                return false;
-            }
         case 2:
+            debugger
             if (
                 value1[0] == value2.command &&
-                typeof Number(value1[1]) == "number" &&
+                value1[1] >= value2.minPunish &&
+                value1[1] <= value2.maxPunish &&
                 value1.length === 2
+                
             ) {
                 return true;
             } else {
@@ -186,23 +179,23 @@ function answerConditions(condition, value1, value2) {
 }
 
 function checkAnswer(elem) {
+    if (answerInput.value == "") {
+        changeInput("warning") 
+        return
+    }
     let clearArray = answerInput.value.split(" ").filter((e) => e != "");
     clearArray[0] = clearArray[0].toLowerCase();
-
     switch (clearArray[0]) {
         case "/mute":
         case "/ban":
         case "/jail":
-            answerConditions(3, clearArray, elem.currentAnswer)
+            debugger
+            answerConditions(2, clearArray, elem.currentAnswer)
                 ? resultTrue(state)
                 : resultFalse(state);
             break;
         case "/kick":
         case "/warn":
-            answerConditions(2, clearArray, elem.currentAnswer)
-                ? resultTrue(state)
-                : resultFalse(state);
-            break;
         case "/skip":
             answerConditions(1, clearArray, elem.currentAnswer)
                 ? resultTrue(state)
@@ -215,4 +208,8 @@ function checkAnswer(elem) {
 
 function openFAQ() {
     document.querySelector(".modal__window").classList.toggle("none");
+}
+
+function sendPunish() {
+
 }

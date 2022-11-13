@@ -15,13 +15,14 @@
      <div class="main__container">
           <div class="active__window">
                <div class="timer__window  disabled">
-                    <h1>Оставшееся время 0:<span id="checkTimer">45</span></h1>
+                    <!-- Оно будет создаваться каждый раз, поэтому менять текст нужно в файле JS -->
+                    <h1>Поле времени</h1> 
                </div>
                <div class="stats__answer">
                     <h1 class="total_answer  true__answer">Правильных ответов - <span id="trueAnswerCount">0</span></h1>
                     <h1 class="total_answer  false__answer">Неправильных ответов - <span id="falseAnswerCount">0</span></h1>
                </div>
-                <input disabled value="Нажмите кнопку 'Создать вопрос'"  id="answerInput" class="answer__input" type="text" placeholder="Пример: /ban 10 10">
+               <input disabled  value="Нажмите кнопку 'Создать вопрос'"  id="answerInput" class="answer__input" type="text" placeholder="Пример: /ban 10 10"  onkeydown="sendPunish(event)">
                <button disabled class="answer__button" id="answerButton" onclick="checkAnswer(state)">Наказать</button>
           </div>
           <div class="info__window">
@@ -60,3 +61,13 @@
 
 </html>
 <script src="./Files/js/app.js"></script>
+<script>
+     function sendPunish(e) {
+          e = e || window.event;
+          console.log(e);
+          if (e.keyCode === 13) {
+               answerButton.click()
+          }
+     }
+</script>
+
