@@ -12,48 +12,61 @@
 </head>
 
 <body>
+
+     <div class="chane__theme">
+          <h1>Сменить тему</h1>
+          <div class="theme__icon light__theme" onclick="changeOnLightTheme()"></div>
+          <div class="theme__icon dark__theme" onclick="changeOnDarkTheme()"></div>
+     </div>
      <div class="main__container">
           <div class="active__window">
                <div class="timer__window ">
                     <!-- Оно будет создаваться каждый раз, поэтому менять текст нужно в файле JS -->
-                    <h1>Поле времени</h1> 
+                    <h1>Поле времени</h1>
                </div>
                <div class="stats__answer">
                     <h1 class="total_answer  true__answer">Правильных ответов - <span id="trueAnswerCount">0</span></h1>
-                    <h1 class="total_answer  false__answer">Неправильных ответов - <span id="falseAnswerCount">0</span></h1>
+                    <h1 class="total_answer  false__answer">Неправильных ответов - <span id="falseAnswerCount">0</span>
+                    </h1>
                </div>
-               <input disabled  value="Нажмите кнопку 'Создать вопрос'"  id="answerInput" class="answer__input" type="text" placeholder="Пример: /ban 10 10"  onkeydown="sendPunish(event)">
+               <input disabled value="Нажмите кнопку 'Создать вопрос'" id="answerInput" class="answer__input"
+                    type="text" placeholder="Пример: /ban 10 10" onkeydown="sendPunish(event)">
                <button disabled class="answer__button" id="answerButton" onclick="checkAnswer(state)">Наказать</button>
           </div>
           <div class="info__window">
                <button class="modal__window__btn" type="button" id="openFAQ" onclick="openFAQ()">Info</button>
                <img src="./Files/img/straf.png" class="ticket__img none" alt="">
-<p id="questionWindow" class="question__title">Приветствую.<br>Это тренажёр для тренировки знаний норм наказания. Если ты тут первый раз, то советую нажать на кнопку "Info".
+               <p id="questionWindow" class="question__title">Приветствую.<br>Это тренажёр для тренировки знаний норм
+                    наказания. Если ты тут первый раз, то советую нажать на кнопку "Info".
                </p>
-               <button class="questionWindow__button" type="button" id="createQuestionBtn" onclick="checkPossibleQuestions(state)">Запустить тренировку</button>
-               <p class="question__note">Примечание:<strong>/ban [норма наказания]</strong>, причину указывать не нужно.<br>
+               <button class="questionWindow__button" type="button" id="createQuestionBtn"
+                    onclick="checkPossibleQuestions(state)">Запустить тренировку</button>
+               <p class="question__note">Примечание:<strong>/ban [норма наказания]</strong>, причину указывать не
+                    нужно.<br>
                     Если Вы считаете, что наказание не нужно, тогда введите <strong>"/skip"</strong></p>
-               
+
           </div>
      </div>
      <div class="modal__window  none">
           <div class="content__wrap">
                <h1 class="modal__window__title">Помощь</h1>
-               <p class="modal__window__about">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты можешь
+               <p class="modal__window__about">Доброе пожаловать на тренировку твоих знаний, Администратор. Тут ты
+                    можешь
                     проверить насколько хорошо ты знаешь нормы наказаний для игроков. Чтобы лучше закрепить свои знания,
                     <b>не
-                    стоит подсматривать норму наказания</b>.</p>
-                    <hr>
+                         стоит подсматривать норму наказания</b>.
+               </p>
+               <hr>
                <p class="modal__window__FAQ">В этом тренажёре нужно указывать только часть наказания, а именно:<br>
                     1) Команду: /ban, /warn, /kick и тому подобное;<br>
                     2) Меру наказания (например для кика указываешь просто /kick);<br>
                     3) Если ты считаешь, что в какой-то из причин наказание не нужно, про просто введи "/skip".<br>
                     <hr>
-                    Ответ дается по следующей форме: <b>/ban [норма наказания]</b> 
+                    Ответ дается по следующей форме: <b>/ban [норма наказания]</b>
                     <br>ID и причину наказания указывать не нужно.
                     <br><b>Пример:</b> Какое наказание за оск.родных? ---> /ban 30
                     <br><b>На ответ выдаётся 25 секунд</b>
-                    </p>
+               </p>
                <button class="closeModal  modal__window__btn" onclick="openFAQ()">Закрыть и вернуться к тесту!</button>
           </div>
      </div>
@@ -70,4 +83,3 @@
           }
      }
 </script>
-

@@ -29,7 +29,7 @@ body {
      position: relative;
 }
 
-.ticket__img{
+.ticket__img {
      display: block;
      position: absolute;
      top: 32%;
@@ -171,7 +171,7 @@ body {
      font-weight: 700;
 }
 
-.modal__window{
+.modal__window {
      position: absolute;
      top: 50%;
      left: 50%;
@@ -189,14 +189,14 @@ body {
      background-color: #fff;
      padding: 8vh 7vw;
      border-radius: 1vw;
-     
+
 }
 
-.modal__window__title{
+.modal__window__title {
      text-align: center;
 }
 
-.modal__window__btn{
+.modal__window__btn {
      text-align: center;
      display: block;
      margin-left: auto;
@@ -218,7 +218,7 @@ body {
      transform: scale(1.05);
 }
 
-.closeModal{
+.closeModal {
      width: 50%;
      font-size: 16px;
      margin: 0 auto;
@@ -230,4 +230,43 @@ body {
      font-size: 8px;
      color: #797979;
      opacity: 0;
+}
+
+.chane__theme {
+     position: absolute;
+     left: 95%;
+     top: 1%;
+     transform: translate(-100%, 0%);
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     grid-column-gap: 5px;
+     border-radius: 50%;
+
+}
+
+.chane__theme>.theme__icon {
+     display: block;
+     border-radius: 50%;
+     width: 30px;
+     height: 30px;
+     border: 1px solid rgba(128, 128, 128, 0.288);
+     align-self: center;
+     cursor: pointer;
+}
+
+.chane__theme h1 {
+     align-self: center;
+     font-size: 12px;
+     font-weight: 100%;
+     text-align: center;
+}
+
+.light__theme {
+     background: rgb(252, 252, 252);
+     background: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
+}
+
+.dark__theme {
+     background: rgb(191, 195, 198);
+     background: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
 }

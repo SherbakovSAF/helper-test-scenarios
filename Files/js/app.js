@@ -211,3 +211,13 @@ function checkAnswer(elem) {
 function openFAQ() {
     document.querySelector(".modal__window").classList.toggle("none");
 }
+
+function changeOnLightTheme() {
+    document.body.style.backgroundColor = "#ffffff";
+    document.body.style.color = "#000000";
+}
+
+function changeOnDarkTheme() {
+    document.body.style.backgroundColor = "#222222";
+    document.body.style.color = "#ffffff";
+}
