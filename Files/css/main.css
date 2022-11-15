@@ -231,24 +231,3 @@ body {
      color: #797979;
      opacity: 0;
 }
-
-.chane__theme{
-position: absolute;
-left: 0;
-top: 0;
-display: flex;
-}
-.light__theme{
-     display: block;
-     width: 20px;
-     height: 20px;
-     background-color: #fff;
-}
-.dark__theme{
-
-     display: block;
-     width: 20px;
-     height: 20px;
-     background-color: #000;
-
-}
