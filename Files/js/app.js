@@ -211,3 +211,12 @@ function checkAnswer(elem) {
 function openFAQ() {
     document.querySelector(".modal__window").classList.toggle("none");
 }
+
+function changeTheme(){
+    const el = document.documentElement
+    if(el.hasAttribute("dark-theme")) {
+        el.removeAttribute("dark-theme")
+    } else {
+        el.setAttribute("dark-theme", "true")
+    }
+}
