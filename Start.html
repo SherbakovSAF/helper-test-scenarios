@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" dark-theme="true">
 
 <head>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="./Files/css/normalize.css">
-     <link rel="stylesheet" href="./Files/css/main.css">
+     <link id="themeCSS" rel="stylesheet" href="./Files/css/style.css">
      <link rel="stylesheet" href="./Files/fonts/stylesheet.css">
      <title>Вопросник</title>
 </head>
@@ -15,8 +15,7 @@
 
      <div class="chane__theme">
           <h1>Сменить тему</h1>
-          <div class="theme__icon light__theme" onclick="changeOnLightTheme()"></div>
-          <div class="theme__icon dark__theme" onclick="changeOnDarkTheme()"></div>
+          <div class="theme__icon light__theme" onclick="changeTheme()"></div>
      </div>
      <div class="main__container">
           <div class="active__window">

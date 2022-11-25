@@ -1,5 +1,28 @@
+:root{
+     --body-bg: #fff;
+     --card-bg: #fff;
+     --main-color-text: #14142B;
+     --card-shadow: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.09));
+     --change-theme-icon: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
+     --input-bg: #EFF0F7;
+     --input-color: #000;
+     --input-border: none;
+}
+
+:root[dark-theme="true"]{
+     --body-bg: #000;
+     --card-bg: #000;
+     --main-color-text: #fff;
+     --card-shadow: drop-shadow(0px 8px 16px rgba(255, 255, 255, 0.959));
+     --change-theme-icon: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
+     --input-bg: #000;
+     --input-color: #fff;
+     --input-border: 1px solid #fff;
+}
+
 body {
      font-family: 'Gilroy';
+     background-color: var(--body-bg);
 }
 
 .main__container {
@@ -23,7 +46,7 @@ body {
      font-weight: 700;
      font-size: 1.9em;
      line-height: 1.1;
-     color: #14142B;
+     color: var(--main-color-text);
      text-align: center;
      align-self: center;
      position: relative;
@@ -43,17 +66,17 @@ body {
      font-size: 10px;
      text-align: right;
      letter-spacing: 0.75px;
-     color: #14142B;
+     color: var(--main-color-text);
 }
 
 .info__window {
      display: grid;
      grid-template-rows: 1fr 9fr 1fr 1fr;
-     background: #FFFFFF;
+     background-color: var(--card-bg);
      height: 65vh;
      padding: 1vh 2vw;
      border-radius: 32px;
-     filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.09));
+     filter: var(--card-shadow);
 }
 
 .questionWindow__button {
@@ -76,8 +99,8 @@ body {
 }
 
 .stats__answer {
-     filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.09));
-     background: #FFFFFF;
+     filter: var(--card-shadow);
+     background: var(--card-bg);
      border-radius: 32px;
      display: flex;
      justify-content: space-between;
@@ -86,15 +109,20 @@ body {
 }
 
 .answer__input {
-     background: #EFF0F7;
+     background: var(--input-bg);
      border-radius: 16px;
-     border: none;
+     border: var(--input-border);
      margin-top: 4vh;
      margin-bottom: 2vh;
      width: 100%;
      padding: 1vh 2vw;
      outline: none;
      cursor: default;
+    color: var(--input-color);
+}
+
+.answer__input::placeholder {
+     color: var(--input-color);
 }
 
 .answer__button {
@@ -135,26 +163,13 @@ body {
      display: none;
 }
 
-
-.answer__true {
-     background-color: #F2FFFB;
-     border: 2px solid #00BA88;
-}
-
-.answer__true::placeholder {
-     color: #00966D;
-     font-weight: 700;
-}
-
 .answer__false {
      background-color: #FFF3F8;
      border: 2px solid #C30052;
-     ;
 }
 
 .answer__false::placeholder {
      color: #C30052;
-     ;
      font-weight: 700;
 }
 
@@ -162,12 +177,11 @@ body {
 .answer__warning {
      background-color: #F8FFCA;
      border: 2px solid #B4C66C;
-     ;
+     color: #000
 }
 
 .answer__warning::placeholder {
      color: #B4C66C;
-     ;
      font-weight: 700;
 }
 
@@ -176,7 +190,7 @@ body {
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
-     background-color: rgba(0, 0, 0, 0.5);
+     background-color: rgba(0, 0, 0, 0.5);;;
      width: 100%;
      height: 100%;
 }
@@ -186,10 +200,10 @@ body {
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
-     background-color: #fff;
+     background-color: var(--card-bg);
      padding: 8vh 7vw;
      border-radius: 1vw;
-
+     color: var(--main-color-text);
 }
 
 .modal__window__title {
@@ -241,7 +255,6 @@ body {
      grid-template-columns: 1fr 1fr 1fr;
      grid-column-gap: 5px;
      border-radius: 50%;
-
 }
 
 .chane__theme>.theme__icon {
@@ -249,9 +262,9 @@ body {
      border-radius: 50%;
      width: 30px;
      height: 30px;
-     border: 1px solid rgba(128, 128, 128, 0.288);
      align-self: center;
      cursor: pointer;
+     background: var(--change-theme-icon);
 }
 
 .chane__theme h1 {
@@ -259,14 +272,5 @@ body {
      font-size: 12px;
      font-weight: 100%;
      text-align: center;
-}
-
-.light__theme {
-     background: rgb(252, 252, 252);
-     background: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
-}
-
-.dark__theme {
-     background: rgb(191, 195, 198);
-     background: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
+     color: var(--main-color-text);
 }
