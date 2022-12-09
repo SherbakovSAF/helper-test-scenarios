@@ -3,22 +3,40 @@
      --card-bg: #fff;
      --main-color-text: #14142B;
      --card-shadow: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.09));
-     --change-theme-icon: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
+     --change-theme-icon: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
      --input-bg: #EFF0F7;
      --input-color: #000;
      --input-border: none;
+     --change-theme-icon-hover: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
+     animation: present  1.5s ease-in-out;
+     --border-change-theme: 2px solid black;
+     --border-change-modal-window: 1px solid transparent;
+     --font-size-timer: 8px;
 }
 
 :root[dark-theme="true"]{
      --body-bg: #000;
      --card-bg: #000;
      --main-color-text: #fff;
-     --card-shadow: drop-shadow(0px 8px 16px rgba(255, 255, 255, 0.959));
-     --change-theme-icon: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
+     --card-shadow: drop-shadow(0px 8px 16px rgba(255, 255, 255, 0.5));
+     --change-theme-icon: linear-gradient(135deg, rgba(191, 195, 198, 1) 0%, rgba(35, 54, 93, 1) 100%);
      --input-bg: #000;
      --input-color: #fff;
      --input-border: 1px solid #fff;
+     --change-theme-icon-hover: linear-gradient(135deg, rgba(252, 252, 252, 1) 0%, rgba(223, 247, 120, 1) 100%);
+     --border-change-theme: 2px solid white;
+     --border-change-modal-window: 1px solid white;
+     --font-size-timer: 12px;
 }
+
+@keyframes present {
+     0%{
+          opacity: 0;
+     }
+     100%{
+          opacity: 1;
+     }
+} 
 
 body {
      font-family: 'Gilroy';
@@ -49,17 +67,6 @@ body {
      color: var(--main-color-text);
      text-align: center;
      align-self: center;
-     position: relative;
-}
-
-.ticket__img {
-     display: block;
-     position: absolute;
-     top: 32%;
-     left: 50%;
-     transform: translate(-50%, -100%);
-     height: 70px;
-     opacity: 1;
 }
 
 .question__note {
@@ -204,6 +211,7 @@ body {
      padding: 8vh 7vw;
      border-radius: 1vw;
      color: var(--main-color-text);
+     border: var(--border-change-modal-window);
 }
 
 .modal__window__title {
@@ -241,7 +249,7 @@ body {
 
 
 .timer__window {
-     font-size: 8px;
+     font-size: var(--font-size-timer);
      color: #797979;
      opacity: 0;
 }
@@ -254,7 +262,10 @@ body {
      display: grid;
      grid-template-columns: 1fr 1fr 1fr;
      grid-column-gap: 5px;
-     border-radius: 50%;
+     padding: 2px 15px;
+     border: var(--border-change-theme);
+     border-radius: 20px;
+     cursor: pointer;
 }
 
 .chane__theme>.theme__icon {
@@ -265,7 +276,14 @@ body {
      align-self: center;
      cursor: pointer;
      background: var(--change-theme-icon);
+     transition: all .3s ease;
 }
+
+.chane__theme>.theme__icon:hover {
+     background: var(--change-theme-icon-hover);
+     transform: scale(1.05);
+}
+
 
 .chane__theme h1 {
      align-self: center;

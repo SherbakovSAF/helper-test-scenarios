@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" dark-theme="true">
+<html lang="ru">
 
 <head>
      <meta charset="UTF-8">
@@ -12,10 +12,9 @@
 </head>
 
 <body>
-
-     <div class="chane__theme">
+     <div class="chane__theme" onclick="changeTheme()">
           <h1>Сменить тему</h1>
-          <div class="theme__icon light__theme" onclick="changeTheme()"></div>
+          <div class="theme__icon light__theme"></div>
      </div>
      <div class="main__container">
           <div class="active__window">
@@ -34,7 +33,6 @@
           </div>
           <div class="info__window">
                <button class="modal__window__btn" type="button" id="openFAQ" onclick="openFAQ()">Info</button>
-               <img src="./Files/img/straf.png" class="ticket__img none" alt="">
                <p id="questionWindow" class="question__title">Приветствую.<br>Это тренажёр для тренировки знаний норм
                     наказания. Если ты тут первый раз, то советую нажать на кнопку "Info".
                </p>
