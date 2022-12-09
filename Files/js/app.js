@@ -126,6 +126,16 @@ let state = {
             currentAnswerQuestion:
                 "Скайп - OOC информация. А использование OOC информации в IC, это МГ, поэтому игроку выдаётся мут.",
         },
+        // {
+        //     id: ,
+        //     question:
+        //         "",
+        //         command: "",
+        //         minPunish: 1,
+        //         maxPunish: 70,
+        //     currentAnswerQuestion:
+        //         "",
+        // },
     ],
     currentAnswer: {},
 };
@@ -187,7 +197,7 @@ function questionGeneration(elem) {
     fullEnable(document.querySelector(".timer__window"));
     document.querySelector(
         ".timer__window"
-    ).innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">1000</span></h1>`;
+    ).innerHTML = `<h1>Оставшееся время 0:<span id="checkTimer">25</span></h1>`;
     answerInput.placeholder = "Пример: /ban 10";
     let objectQuestion =
         elem.questions[Math.floor(Math.random() * elem.questions.length)];
@@ -213,6 +223,7 @@ function conditionAnswer() {
 }
 
 function resultTrue(elem) {
+    clearTimeout(timeForQuestion);
     const trueAnswerCount = document.querySelector("#trueAnswerCount");
     trueAnswerCount.innerHTML = Number(trueAnswerCount.innerHTML) + 1;
     checkPossibleQuestions(elem);
